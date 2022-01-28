@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from '../logo.svg';
-import '../styles/App.scss';
+import { useRef } from "react";
+import "../styles/App.scss";
+import partyPopper from "../images/party-popper.png";
 
-function App() {
+const App = () => {
+  const canvasRef = useRef(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="pc-main-content">
+      <div className="pc-canvas-container">
+        <div className="pc-intro">
+          <span className="pc-intro-english">happy new year</span>
+          <span>&nbsp;</span>
+          <span className="pc-intro-chinese">新年好</span>
+        </div>
+        <div className="pc-party-popper-container">
+          <div className="pc-party-popper">
+            <img src={partyPopper} alt="party popper" />
+          </div>
+        </div>
+        <canvas ref={canvasRef} className="pc-canvas"></canvas>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
