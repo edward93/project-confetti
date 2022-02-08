@@ -23,7 +23,6 @@ const App = () => {
   const confettiGravity = 0.5;
   const confettiFriction = 0.01;
   const confettiFiringSpeed = 70;
-  const dpr = window.devicePixelRatio || 1;
 
   let canvasContext: CanvasRenderingContext2D | null;
   let partyPopperAngle = 0;
@@ -41,7 +40,7 @@ const App = () => {
       canvas.addEventListener("mouseup", handleMouseUp);
       canvas.addEventListener("touchstart", handleMouseDown);
       canvas.addEventListener("touchend", handleMouseUp);
-      canvas.addEventListener("resize", setCanvasSize);
+      window.addEventListener("resize", setCanvasSize);
     }
   };
 
@@ -56,7 +55,7 @@ const App = () => {
       canvas.removeEventListener("mouseup", handleMouseUp);
       canvas.removeEventListener("touchstart", handleMouseDown);
       canvas.removeEventListener("touchend", handleMouseUp);
-      canvas.removeEventListener("resize", setCanvasSize);
+      window.removeEventListener("resize", setCanvasSize);
     }
   };
   //#endregion
@@ -64,8 +63,8 @@ const App = () => {
   const addConfettiParticles = (amount: number, angle: number, speed: number, x: number, y: number): void => {
     for (let i = 0; i < amount; i++) {
       // sprite
-      const r = random(4, 6) * dpr;
-      const d = random(15, 25) * dpr;
+      const r = random(4, 6);
+      const d = random(15, 25);
 
       // generate random color
       const color = `rgb(${random(50, 255)}, ${random(50, 200)}, ${random(50, 200)})`;
@@ -112,7 +111,8 @@ const App = () => {
    */
   const render = () => {
     const canvas = canvasRef.current;
-    if (canvas) canvasContext?.clearRect(0, 0, canvas.clientWidth, canvas.clientWidth);
+    console.log(canvas?.clientWidth, canvas?.clientHeight);
+    if (canvas) canvasContext?.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
 
     drawConfetti();
 
@@ -183,11 +183,11 @@ const App = () => {
   //#region event handlers
   //#region movements
   const handleMouseMove = (e: MouseEvent) => {
-    handleAngleChanges(e.clientX * dpr, e.clientY * dpr);
+    handleAngleChanges(e.clientX, e.clientY);
   };
 
   const handleTouchMove = (e: TouchEvent) => {
-    handleAngleChanges(e.touches[0].clientX * dpr, e.touches[0].clientY * dpr);
+    handleAngleChanges(e.touches[0].clientX, e.touches[0].clientY);
   };
   //#endregion
 
@@ -207,9 +207,10 @@ const App = () => {
    */
   const setCanvasSize = () => {
     const canvas = canvasRef.current;
+    console.log(window);
     if (canvas) {
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
   };
   //#endregion
@@ -246,7 +247,6 @@ const App = () => {
     if (canvas) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       canvasContext = canvas.getContext("2d");
-      canvasContext?.scale(dpr, dpr);
     }
   }, []);
 
