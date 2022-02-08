@@ -1,3 +1,12 @@
+@mixin no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
 .pc-main-content {
   display: flex;
   justify-content: center;
@@ -8,11 +17,17 @@
 
   & .pc-canvas-container {
     display: flex;
+    flex-direction: column;
 
     justify-content: center;
     align-items: center;
 
+    width: 100%;
+
     & .pc-party-popper-container {
+      @include no-select;
+      z-index: 2;
+
       &.shake {
         animation: shake 0.1s linear infinite;
       }
@@ -41,6 +56,10 @@
     }
 
     & .pc-intro {
+      @include no-select;
+
+      flex-grow: 10;
+      align-items: center;
       display: flex;
       z-index: 2;
 
@@ -56,6 +75,14 @@
         color: rgb(192, 71, 71);
         font-weight: 900;
       }
+    }
+
+    & .pc-footer-wrapper {
+      @include no-select;
+
+      display: flex;
+      justify-content: flex-end;
+      align-self: flex-end;
     }
 
     & .pc-canvas {

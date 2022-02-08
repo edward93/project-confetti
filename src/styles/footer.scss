@@ -1,0 +1,16 @@
+.pc-footer-container {
+  display: flex;
+  flex-grow: 2;
+  padding: 0.3em 1em 1em 1em;
+  background-color: transparent;
+  text-align: right;
+  color: black;
+
+  & .pc-footer-app-info {
+    display: flex;
+    flex-direction: column;
+  }
+  & .pc-logo-first-letter {
+    color: #ec1840;
+  }
+}
